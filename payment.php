@@ -37,8 +37,8 @@ if(isset($_POST['pay'])){
                     VALUES('$user_email','$date','$time')";
             if($conn->query($sql)){
                 $booking_id = $conn->insert_id;
-                $payment = "INSERT INTO payments(booking_id, amount, payment_status, txn_id)
-                            VALUES('$booking_id','$amount','Paid','$txn_id')";
+                $payment = "INSERT INTO payments(booking_id, user_email, amount, payment_status, txn_id)
+                            VALUES('$booking_id','$user_email','$amount','Paid','$txn_id')";
                 $conn->query($payment);
                 unset($_SESSION['booking_date']);
                 unset($_SESSION['booking_time']);

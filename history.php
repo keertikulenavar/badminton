@@ -9,7 +9,8 @@ if(!isset($_SESSION['email'])){
 
 $user_email = $_SESSION['email'];
 
-/* Cancel booking */
+/* Cancel booking — deletes ONLY from bookings table.
+   Payments table is never touched, so payment_history stays intact. */
 if(isset($_GET['date']) && isset($_GET['time'])){
     $date = $_GET['date'];
     $time = $_GET['time'];

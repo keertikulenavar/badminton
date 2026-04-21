@@ -9,11 +9,11 @@ if(!isset($_SESSION['email'])){
 
 $email = $_SESSION['email'];
 
-/* Fetch payment history */
-$sql = "SELECT payments.payment_id, payments.booking_id, payments.amount, payments.payment_status
+/* Fetch payment history — query payments directly by user_email so that
+   payment records are never lost even when a booking is cancelled/deleted */
+$sql = "SELECT payment_id, booking_id, amount, payment_status
         FROM payments
-        JOIN bookings ON payments.booking_id = bookings.booking_id
-        WHERE bookings.user_email='$email' AND payments.payment_status='Paid'";
+        WHERE user_email='$email' AND payment_status='Paid'";
 
 $result = $conn->query($sql);
 
