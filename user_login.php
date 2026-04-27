@@ -173,7 +173,7 @@ body {
 
 <div class="card">
     <div class="card-header">
-        <div class="avatar">🏸</div>
+        <div class="avatar">&#127992;</div>
         <h2>Welcome Back</h2>
         <p>Sign in to book your court</p>
     </div>
@@ -181,7 +181,7 @@ body {
     <div class="form-body">
 
         <?php if (!empty($error)): ?>
-        <div class="error-box">⚠️ <?php echo htmlspecialchars($error); ?></div>
+        <div class="error-box">&#9888;&#65039; <?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
 
         <!-- Autofill disabled -->
@@ -211,14 +211,14 @@ body {
                 </div>
             </div>
 
-            <button type="submit" name="login" class="btn-login">Sign In →</button>
+            <button type="submit" name="login" class="btn-login">Sign In &rarr;</button>
 
         </form>
 
         <div class="divider"></div>
 
         <div class="footer-links">
-            <a href="index.php">← Back to Home</a>
+            <a href="index.php">&larr; Back to Home</a>
         </div>
 
         <div class="footer-center">

@@ -158,7 +158,7 @@ body {
 
 <div class="card">
     <div class="card-header">
-        <div class="avatar">🏸</div>
+        <div class="avatar">&#127992;</div>
         <h2>Create Account</h2>
         <p>Register to book your badminton court</p>
     </div>
@@ -166,7 +166,7 @@ body {
     <div class="form-body">
 
         <?php if (!empty($error)): ?>
-        <div class="error-box">⚠️ <?php echo htmlspecialchars($error); ?></div>
+        <div class="error-box">&#9888;&#65039; <?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
 
         <form method="POST" action="" autocomplete="off">
@@ -227,7 +227,7 @@ body {
             </div>
 
             <button type="submit" name="userregister" class="btn-register">
-                Create Account →
+                Create Account &rarr;
             </button>
 
         </form>

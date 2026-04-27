@@ -17,7 +17,6 @@ $date       = $_SESSION['booking_date'];
 $time       = $_SESSION['booking_time'];
 $amount     = 200;
 
-/* Format date nicely for display */
 $display_date = date("d M Y", strtotime($date));
 
 if(isset($_POST['pay'])){
@@ -71,7 +70,6 @@ body{
     padding:30px 16px;
 }
 
-/* ── Card ── */
 .box{
     background:rgba(255,255,255,0.98);
     width:100%;
@@ -80,7 +78,6 @@ body{
     overflow:hidden;
 }
 
-/* ── Header ── */
 .card-header{
     background:linear-gradient(135deg,#1b5e20,#2e7d32);
     padding:24px 28px 20px;
@@ -90,7 +87,6 @@ body{
 .card-header h2{ font-size:20px; letter-spacing:0.5px; margin-bottom:3px; }
 .card-header p{ font-size:13px; opacity:0.8; }
 
-/* ── Booking summary strip ── */
 .booking-summary{
     display:flex;
     border-bottom:1px solid #e8f5e9;
@@ -115,7 +111,6 @@ body{
     color:#1b5e20;
 }
 
-/* ── Amount banner ── */
 .amount-banner{
     background:#f1f8e9;
     border-bottom:1px solid #c8e6c9;
@@ -137,10 +132,8 @@ body{
     color:#1b5e20;
 }
 
-/* ── Body ── */
 .body{ padding:24px 28px; }
 
-/* ── Progress steps ── */
 .steps{
     display:flex;
     align-items:center;
@@ -172,7 +165,6 @@ body{
 .step-line{ flex:1; height:2px; background:#ddd; margin-top:-14px; }
 .step-line.done{ background:#2e7d32; }
 
-/* ── QR section ── */
 .qr-wrap{
     background:#f9fbe7;
     border:1.5px dashed #a5d6a7;
@@ -214,7 +206,6 @@ body{
     margin-top:5px;
 }
 
-/* ── Error box ── */
 .error-box{
     background:#ffebee;
     border:1px solid #ffcdd2;
@@ -228,7 +219,6 @@ body{
     gap:8px;
 }
 
-/* ── Input ── */
 .field-label{
     font-size:12px;
     font-weight:700;
@@ -252,7 +242,6 @@ input[type=text]{
 }
 input[type=text]:focus{ border-color:#2e7d32; }
 
-/* ── Pay button ── */
 .btn-pay{
     width:100%;
     padding:14px;
@@ -269,7 +258,6 @@ input[type=text]:focus{ border-color:#2e7d32; }
 }
 .btn-pay:hover{ background:linear-gradient(135deg,#1b5e20,#134a18); transform:translateY(-1px); }
 
-/* ── Security note ── */
 .security-note{
     display:flex;
     align-items:center;
@@ -280,7 +268,6 @@ input[type=text]:focus{ border-color:#2e7d32; }
     margin-top:10px;
 }
 
-/* ── Back link ── */
 .back-btn{
     display:flex;
     align-items:center;
@@ -299,7 +286,6 @@ input[type=text]:focus{ border-color:#2e7d32; }
 }
 .back-btn:hover{ background:#eeeeee; }
 
-/* ── Responsive ── */
 @media(max-width:480px){
     .body{ padding:20px 18px; }
     .summary-cell .val{ font-size:13px; }
@@ -311,13 +297,11 @@ input[type=text]:focus{ border-color:#2e7d32; }
 
 <div class="box">
 
-  <!-- Header -->
   <div class="card-header">
     <h2>🏸 Complete Your Booking</h2>
     <p>Scan &amp; pay to confirm your court reservation</p>
   </div>
 
-  <!-- Booking Summary Strip -->
   <div class="booking-summary">
     <div class="summary-cell">
       <div class="lbl">Date</div>
@@ -333,7 +317,6 @@ input[type=text]:focus{ border-color:#2e7d32; }
     </div>
   </div>
 
-  <!-- Amount Banner -->
   <div class="amount-banner">
     <span class="label">💰 Amount Due</span>
     <span class="amount">₹<?php echo $amount; ?></span>
@@ -341,26 +324,31 @@ input[type=text]:focus{ border-color:#2e7d32; }
 
   <div class="body">
 
-
-    <!-- Error Message -->
     <?php if(!empty($error)): ?>
     <div class="error-box">⚠️ <?php echo htmlspecialchars($error); ?></div>
     <?php endif; ?>
 
-    <!-- QR Code -->
     <div class="qr-wrap">
       <img src="qrcode.jpeg" alt="Scan to Pay via UPI">
       <button class="upi-badge" onclick="copyUPI()">📋 8660201@ybl</button>
       <div class="copy-hint" id="copyHint">Tap to copy UPI ID</div>
     </div>
 
-    <!-- Form -->
-    <form method="POST">
+    <form method="POST" autocomplete="off">
       <div class="field-label">🔢 Transaction ID (UTR Number)</div>
-      <input type="text" name="txn_id"
-             placeholder="e.g. 425123456789"
-             value="<?php echo isset($_POST['txn_id']) ? htmlspecialchars($_POST['txn_id']) : ''; ?>"
-             required>
+      <input
+        type="text"
+        name="txn_id"
+        id="txn_id"
+        placeholder="TR1234567890"
+        value="<?php echo isset($_POST['txn_id']) ? htmlspecialchars($_POST['txn_id']) : ''; ?>"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        readonly
+        onfocus="this.removeAttribute('readonly')"
+        required>
 
       <button type="submit" name="pay" class="btn-pay">
         ✅ I Have Paid — Confirm Booking
