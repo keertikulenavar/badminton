@@ -17,13 +17,13 @@ if(isset($_GET['delete'])){
     exit();
 }
 
-/* Fetch all users with booking count */
+/* Fetch all users with booking count — ASC so newest appears at bottom */
 $sql = "SELECT u.user_id, u.name, u.email, u.contact,
                COUNT(b.booking_id) AS booking_count
         FROM users u
         LEFT JOIN bookings b ON u.email = b.user_email
         GROUP BY u.user_id
-        ORDER BY u.user_id DESC";
+        ORDER BY u.user_id ASC";
 $result = $conn->query($sql);
 $users  = [];
 $total  = 0;
@@ -187,7 +187,7 @@ tfoot td {
             <tbody>
                 <?php foreach($users as $i => $u): ?>
                 <tr style="animation-delay:<?php echo $i * 0.04; ?>s">
-                    <td><?php echo $u['user_id']; ?></td>
+                    <td><?php echo $i + 1; ?></td>
                     <td>
                         <div class="name-main"><?php echo htmlspecialchars($u['name']); ?></div>
                     </td>
