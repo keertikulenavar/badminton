@@ -67,7 +67,6 @@ body { font-family: Arial, sans-serif; min-height: 100vh; color: white; }
 
 /* ── Hero ── */
 .hero { text-align: center; padding: 28px 0 22px; }
-.clock { font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 8px; }
 .hero h1 { font-size: 30px; font-weight: bold; color: #fff; margin-bottom: 8px; }
 .greeting-badge {
     display: inline-block;
@@ -176,7 +175,6 @@ body { font-family: Arial, sans-serif; min-height: 100vh; color: white; }
 <div class="content">
 
     <div class="hero">
-        <div class="clock" id="clock"></div>
         <p class="greeting-badge">⚙️ Admin Control Centre</p>
         <h1>Admin Dashboard</h1>
     </div>
@@ -264,15 +262,5 @@ body { font-family: Arial, sans-serif; min-height: 100vh; color: white; }
     </div>
 
 </div>
-
-<script>
-function updateClock(){
-    const now = new Date();
-    const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'};
-    document.getElementById('clock').textContent = now.toLocaleDateString('en-IN', opts);
-}
-updateClock();
-setInterval(updateClock, 1000);
-</script>
 </body>
 </html>

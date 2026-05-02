@@ -23,9 +23,15 @@ if(isset($_POST['pay'])){
     $txn_id = trim($_POST['txn_id']);
 
     if(empty($txn_id)){
-        $error = "Please enter your Transaction ID to proceed.";
+        $error = "Please enter your 12-digit UTR number to proceed.";
+    } elseif(!preg_match('/^[0-9]{12}$/', $txn_id)){
+        $error = "UTR number must contain exactly 12 digits.";
     } else {
-        $check = "SELECT * FROM bookings WHERE booking_date='$date' AND booking_time='$time'";
+        /* Exclude cancelled bookings so freed slots can be re-booked */
+        $check = "SELECT b.booking_id FROM bookings b
+                  LEFT JOIN cancelled_bookings cb ON b.booking_id = cb.booking_id
+                  WHERE b.booking_date='$date' AND b.booking_time='$time'
+                  AND cb.booking_id IS NULL";
         $result = $conn->query($check);
 
         if($result && $result->num_rows > 0){
@@ -335,19 +341,26 @@ input[type=text]:focus{ border-color:#2e7d32; }
     </div>
 
     <form method="POST" autocomplete="off">
-      <div class="field-label">🔢 Transaction ID (UTR Number)</div>
+      <div class="field-label">🔢 UTR Number</div>
       <input
         type="text"
         name="txn_id"
         id="txn_id"
-        placeholder="TR1234567890"
+        placeholder="Enter 12 digit UTR number"
         value="<?php echo isset($_POST['txn_id']) ? htmlspecialchars($_POST['txn_id']) : ''; ?>"
+        inputmode="numeric"
+        pattern="[0-9]{12}"
+        minlength="12"
+        maxlength="12"
+        title="Enter exactly 12 digits"
         autocomplete="off"
         autocorrect="off"
         autocapitalize="off"
         spellcheck="false"
         readonly
         onfocus="this.removeAttribute('readonly')"
+        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)"
         required>
 
       <button type="submit" name="pay" class="btn-pay">
@@ -356,6 +369,7 @@ input[type=text]:focus{ border-color:#2e7d32; }
     </form>
 
     <div class="security-note">🔒 Your payment details are secure</div>
+    <div class="security-note">⚠️ Non-refundable once payment is confirmed</div>
 
     <a href="court.php" class="back-btn">← Back to Court Selection</a>
 
