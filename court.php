@@ -247,7 +247,6 @@ text-transform:uppercase;
 letter-spacing:0.5px;
 font-weight:bold;
 }
-
 .btn-check,.btn-book{
 width:100%;
 padding:14px;
